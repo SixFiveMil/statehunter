@@ -97,7 +97,7 @@ In the **Data usage** questionnaire on the CWS dashboard:
 ### D. Privacy Policy URL
 Enter the hosted URL of your [`PRIVACY_POLICY.md`](../PRIVACY_POLICY.md), for example:
 ```text
-https://github.com/SixFiveMil/statehunter/blob/master/PRIVACY_POLICY.md
+https://github.com/SixFiveMil/statehunter/blob/main/PRIVACY_POLICY.md
 ```
 *(Or the `codeandcypher.com` website equivalent).*
 
