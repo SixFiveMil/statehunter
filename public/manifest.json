@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "StateHunter: In-Browser SPA State & DOM Security Recon",
+  "version": "1.0.0",
+  "description": "Real-time client-side runtime JS analysis, postMessage auditing, SPA route de-obfuscation, and secret hunting.",
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "devtools_page": "devtools.html",
+  "action": {
+    "default_title": "StateHunter: Open DevTools to inspect"
+  }
+}

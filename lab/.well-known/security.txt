@@ -1,0 +1,7 @@
+Contact: mailto:security-team@corp.local
+Contact: https://bounty.corp.local/submit-report
+Policy: https://bounty.corp.local/safe-harbor-rules
+Acknowledgments: https://bounty.corp.local/hall-of-fame
+Canonical: http://localhost:8080/.well-known/security.txt
+Preferred-Languages: en
+Expires: 2028-12-31T23:59:59.000Z

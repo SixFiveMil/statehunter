@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Synthetic Test: Next.js SPA Manifest Recon</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; background: #0f172a; color: #e2e8f0; }
+    .card { background: #1e293b; padding: 20px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; }
+    h1 { color: #38bdf8; }
+    code { background: #090d16; padding: 2px 6px; border-radius: 4px; color: #a5f3fc; font-family: monospace; }
+  </style>
+  <script>
+    // Simulated Next.js build manifest containing unlinked admin & internal endpoints
+    window.__BUILD_MANIFEST = {
+      sortedPages: [
+        "/",
+        "/_app",
+        "/_error",
+        "/pricing",
+        "/login",
+        "/admin/dashboard",
+        "/admin/user-impersonation",
+        "/internal/feature-flags",
+        "/api/v1/billing/stripe-webhook",
+        "/api/v2/private-metrics",
+        "/users/[userId]/settings"
+      ],
+      __rewrites: {
+        beforeFiles: [
+          { source: "/secret-console", destination: "/admin/dashboard" }
+        ]
+      }
+    };
+
+    // Simulated Next.js hydration payload leaking user email and staging database url
+    window.__NEXT_DATA__ = {
+      props: {
+        pageProps: {
+          initialUser: { id: 1042, email: "developer@corp.internal", role: "superadmin" },
+          debugConfig: {
+            stagingApi: "https://staging-api.corp.internal/v1",
+            apiKeyPattern: "AIza" + "SyD-TEST-GCP-KEY-1234567890abcde"
+          }
+        }
+      },
+      page: "/admin/dashboard",
+      query: {},
+      buildId: "prod_build_9f8e21a"
+    };
+  </script>
+</head>
+<body>
+  <h1>Next.js SPA Manifest & Route Extraction Test</h1>
+  <div class="card">
+    <p>This page simulates a Next.js application with simulated <code>window.__BUILD_MANIFEST</code> and <code>window.__NEXT_DATA__</code>.</p>
+    <p>Open <strong>Chrome DevTools &rarr; StateHunter</strong>:</p>
+    <ul>
+      <li>Inspect the <strong>SPA Routes</strong> tab to verify that <code>/admin/dashboard</code>, <code>/internal/feature-flags</code>, and <code>/secret-console</code> are de-obfuscated.</li>
+      <li>Inspect the <strong>Overview</strong> and <strong>Secrets</strong> tabs to see the extracted Google API key and sensitive internal props.</li>
+    </ul>
+  </div>
+</body>
+</html>

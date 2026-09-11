@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /internal/metrics/
+Disallow: /api/v1/private/
+Disallow: /secret-console/
+Disallow: /checkout/payment-flow/
+Disallow: /billing/stripe-webhook/
+
+# Public endpoints
+Allow: /
+Allow: /pricing

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Synthetic Test: Insecure postMessage Handlers</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; background: #0f172a; color: #e2e8f0; }
+    .card { background: #1e293b; padding: 20px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; }
+    button { background: #0284c7; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-right: 10px; font-weight: 500; }
+    button:hover { background: #0369a1; }
+    button.danger { background: #dc2626; }
+    button.danger:hover { background: #b91c1c; }
+    #output { background: #090d16; padding: 12px; border-radius: 6px; font-family: monospace; border: 1px solid #334155; min-height: 40px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Insecure postMessage Audit Testbed</h1>
+
+  <div class="card">
+    <h3>1. Insecure Listener (No origin validation + DOM sink)</h3>
+    <p>The listener on this page processes messages without verifying <code>event.origin</code> and directly assigns untrusted input to an element's <code>innerHTML</code>.</p>
+    <div id="output">Waiting for messages...</div>
+  </div>
+
+  <div class="card">
+    <h3>2. Dispatched Messages</h3>
+    <button onclick="dispatchSafeMessage()">Send Validated Message</button>
+    <button class="danger" onclick="dispatchInsecureMessage()">Send Wildcard Token (*)</button>
+    <button onclick="pollutePrototype()">Trigger Prototype Mutation</button>
+  </div>
+
+  <script>
+    // Vulnerable listener: No origin check + dangerous DOM sink (innerHTML)
+    window.addEventListener('message', function (event) {
+      if (event.data && event.data.htmlContent) {
+        document.getElementById('output').innerHTML = event.data.htmlContent;
+      }
+    });
+
+    function dispatchSafeMessage() {
+      window.postMessage({ type: 'STATUS_PING', timestamp: Date.now() }, window.location.origin);
+    }
+
+    function dispatchInsecureMessage() {
+      // Wildcard targetOrigin containing simulated auth token
+      window.postMessage({
+        action: 'OAUTH_CALLBACK',
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImFkbWluIjp0cnVlfQ.signature',
+        secret: 'sk_live_' + '51MOCKTESTKEY1234567890'
+      }, '*');
+    }
+
+    function pollutePrototype() {
+      // Simulate prototype pollution
+      Object.defineProperty(Object.prototype, 'isAdmin', {
+        value: true,
+        writable: true,
+        configurable: true
+      });
+      alert('Polluted Object.prototype.isAdmin = true!');
+    }
+  </script>
+</body>
+</html>

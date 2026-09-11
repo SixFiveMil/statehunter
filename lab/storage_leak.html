@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Synthetic Test: Storage Leaks & High Entropy Secrets</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; line-height: 1.6; background: #0f172a; color: #e2e8f0; }
+    .card { background: #1e293b; padding: 20px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; }
+    button { background: #0284c7; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #0369a1; }
+    pre { background: #090d16; padding: 12px; border-radius: 6px; font-family: monospace; border: 1px solid #334155; }
+  </style>
+  <script>
+    // Populate client storage with test secrets on page load
+    (function injectTestCredentials() {
+      // 1. AWS Access Key in localStorage
+      localStorage.setItem('aws_backup_credentials', JSON.stringify({
+        access_key: 'AKIAIOSFODNN7EXAMPLE',
+        region: 'us-east-1'
+      }));
+
+      // 2. High entropy private API token
+      localStorage.setItem('auth_service_token', 'd9F8xK2qL4vB0mZ7wP1eR3tY5uI6oA8sZ1x2c3v4');
+
+      // 3. Sensitive JSON Web Token in sessionStorage
+      const testJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDQyIiwibmFtZSI6IlJvb3QgQWRtaW4iLCJyb2xlIjoic3VwZXJhZG1pbiIsImVtYWlsIjoiYWRtaW5AY29ycC5sb2NhbCIsImlzX2FkbWluIjp0cnVlLCJleHAiOjE4OTM0NTYwMDB9.signature';
+      sessionStorage.setItem('id_token', testJwt);
+
+      // 4. Slack incoming webhook in global window
+      window.SLACK_NOTIFICATION_URL = 'https://hooks.slack.com/' + 'services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX';
+    })();
+  </script>
+</head>
+<body>
+  <h1>Client Storage Secrets & High Entropy Test</h1>
+  <div class="card">
+    <p>This page automatically writes simulated credentials to <code>localStorage</code>, <code>sessionStorage</code>, and <code>window</code> globals.</p>
+    <p>Open <strong>Chrome DevTools &rarr; StateHunter &rarr; Secrets & Storage</strong>:</p>
+    <ul>
+      <li>Verify that <strong>AKIAIOSFODNN7EXAMPLE</strong> is flagged with <code>CRITICAL</code> severity.</li>
+      <li>Verify that the JWT <strong>id_token</strong> is automatically decoded showing sensitive claims (<code>role: superadmin</code>, <code>email: admin@corp.local</code>).</li>
+      <li>Verify that the high-entropy string <code>auth_service_token</code> is identified with Shannon entropy &gt; 4.6 bits.</li>
+    </ul>
+  </div>
+</body>
+</html>
