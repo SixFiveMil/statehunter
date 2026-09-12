@@ -7,8 +7,11 @@
 [![React](https://img.shields.io/badge/React-19.0-61dafb?logo=react&logoColor=black)](package.json)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?logo=tailwindcss&logoColor=white)](tailwind.config.js)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![RFC: 001 Open](https://img.shields.io/badge/RFC-001%20Peer%20Review-purple.svg)](docs/rfcs/RFC-001-COMMUNITY-PEER-REVIEW.md)
 
 A high-performance **Chrome Manifest V3 DevTools Extension** designed for application security engineers, penetration testers, and bug bounty hunters. Authored by **Joshua A. Wortz, CISSP** ([Code & Cypher](https://codeandcypher.com)).
+
+> 📢 **Call for Peer Review**: We have published **[RFC-001: Community Peer Review](docs/rfcs/RFC-001-COMMUNITY-PEER-REVIEW.md)** and the companion technical paper **[Bridging the Browser-to-Boundary Gap](https://codeandcypher.com/posts/client-side-spa-recon-and-safe-harbor-verification/)**. We invite AppSec engineers, penetration testers, and bug bounty researchers to test our de-obfuscation heuristics and share feedback in [GitHub Discussions](https://github.com/SixFiveMil/statehunter/discussions) or [Issues](https://github.com/SixFiveMil/statehunter/issues).
 
 StateHunter performs real-time client-side runtime JavaScript analysis, detects sensitive data exposure in client storage, audits and replays `postMessage` handlers, de-obfuscates hidden Single Page Application (SPA) routes, harvests RFC 9116 vulnerability disclosure policies, enforces strict client-side scope boundaries during active testing, and exports triage-ready reports directly into Markdown or [AuditGuard](https://github.com/SixFiveMil/auditguard) format.
 
