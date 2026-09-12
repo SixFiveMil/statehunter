@@ -15,7 +15,7 @@ export function generateMarkdownReport(state: TabState): string {
   const mediumCount = secrets.filter(s => s.severity === 'MEDIUM').length +
                       messages.filter(m => m.risk === 'MEDIUM').length;
 
-  let md = `# StateHunter Security Reconnaissance Report\n\n`;
+  let md = `# StateHunter Security Audit Report\n\n`;
   md += `**Target URL:** \`${state.url || 'Unknown'}\`  \n`;
   md += `**Page Title:** ${state.title || 'N/A'}  \n`;
   md += `**Timestamp:** ${dateStr}  \n`;

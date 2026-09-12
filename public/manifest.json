@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "StateHunter: In-Browser SPA State & DOM Security Recon",
+  "name": "StateHunter: Runtime SPA State Inspector & DOM Sink Auditor",
   "version": "1.0.0",
-  "description": "Real-time client-side runtime JS analysis, postMessage auditing, SPA route de-obfuscation, and secret hunting.",
+  "description": "Runtime SPA State Inspector & DOM Sink Auditor",
   "permissions": [
     "storage",
     "scripting"

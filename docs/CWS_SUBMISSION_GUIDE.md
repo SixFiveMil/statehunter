@@ -8,7 +8,7 @@ This document contains the exact disclosures, single-purpose descriptions, and p
 
 ### Extension Name
 ```text
-StateHunter: SPA State & DOM Security Recon
+StateHunter: Runtime SPA State Inspector & DOM Sink Auditor
 ```
 
 ### Summary (Max 132 characters)
@@ -23,17 +23,17 @@ Developer Tools
 
 ### Detailed Description
 ```markdown
-StateHunter is a high-performance Chrome DevTools extension designed for application security engineers, penetration testers, and bug bounty researchers.
+StateHunter is a Chrome DevTools extension designed for application security engineers, penetration testers, and security researchers.
 
-StateHunter activates strictly when DevTools is opened to perform real-time, client-side runtime JavaScript analysis, identify sensitive credential exposures in client storage, audit and replay postMessage event flows, de-obfuscate hidden Single Page Application (SPA) routes, and enforce strict client-side scope boundaries during security assessments.
+StateHunter activates strictly when DevTools is opened to perform client-side runtime JavaScript analysis, identify sensitive credential exposures in client storage, audit and replay postMessage event flows, de-obfuscate hidden Single Page Application (SPA) routes, and enforce strict client-side scope boundaries during security assessments.
 
 KEY FEATURES:
 • SPA Route De-Obfuscator & Live Reachability Prober: Uncovers hidden internal/admin routes from Next.js, Nuxt, Remix, and Webpack chunk manifests with built-in scope guardrails to block sensitive endpoints (/logout, /delete, /billing).
 • postMessage Security Auditor: Hooks native message listeners to detect missing origin checks, flag cross-origin messages reaching dangerous DOM sinks (innerHTML, eval), and test handlers with an interactive replay console.
 • In-Memory Secrets & Storage Auditor: Detects leaked credentials, AWS/Stripe API keys, Slack webhooks, and decoded JWT tokens with sensitive claims in localStorage, sessionStorage, and window globals.
 • Prototype Pollution Detector: Traverses Object.prototype to detect runtime gadget pollution in client-side libraries.
-• Well-Known Recon & Safe Harbor: Auto-extracts RFC 9116 security.txt policies and parses robots.txt directives into testing exclusions.
-• Triage-Ready Reports: One-click export to formatted Markdown bug bounty reports and AuditGuard YAML.
+• RFC 9116 Policy & Scope Discovery: Auto-extracts RFC 9116 security.txt policies and parses robots.txt directives into testing exclusions.
+• Structured Audit Reports: One-click export to formatted Markdown security audit reports and AuditGuard YAML.
 
 PRIVACY & SAFETY FIRST:
 • DevTools-Activated: Zero background code injection or monitoring when DevTools is closed.

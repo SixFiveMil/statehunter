@@ -4,7 +4,7 @@ This guide explains how StateHunter discovers target policies, enforces research
 
 ---
 
-## 1. Automated Well-Known Reconnaissance
+## 1. RFC 9116 Policy & Scope Discovery
 
 StateHunter automatically queries two standardized public web endpoints when you navigate to any target domain:
 
